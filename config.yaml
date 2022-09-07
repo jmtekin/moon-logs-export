@@ -1,0 +1,36 @@
+extensions:
+  health_check:
+receivers:
+  otlp:
+    protocols:
+      grpc:
+        endpoint: 0.0.0.0:4317
+      http:
+        endpoint: 0.0.0.0:55681
+processors:
+  batch/traces:
+    timeout: 1s
+    send_batch_size: 50
+  batch/metrics:
+    timeout: 60s
+  batch/logs:
+    timeout: 60s
+exporters:
+  logging:
+    loglevel: info
+service:
+  pipelines:
+    traces:
+      receivers: [otlp]
+      processors: [batch/traces]
+      exporters: [logging]
+    metrics:
+      receivers: [otlp]
+      processors: [batch/metrics]
+      exporters: [logging]
+    logs:
+      receivers: [otlp]
+      processors: [batch/logs]
+      exporters: [logging]
+
+  extensions: [health_check]
