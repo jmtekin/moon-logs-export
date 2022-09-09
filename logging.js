@@ -2,7 +2,10 @@ var fs = require('fs');
 var util = require('util');
 var logrotate = require('logrotator');
 
-var log_file = fs.createWriteStream(__dirname + '/debug.log', {flags : 'a'});
+var filename = process.argv[2]
+var level = process.argv[3]
+
+var log_file = fs.createWriteStream(__dirname + filename, {flags : 'a'});
 var log_stdout = process.stdout;
 
 console.log = function(d) { //
@@ -32,5 +35,5 @@ rotator.register('/var/log/debug.log', {
 
 setInterval(function() {
     time = new Date().toISOString()
-    console.log(`${time} ${parseInt(Math.random() * 100)}`)
-}, 5000)
+    console.log(`${time} ${level} ${parseInt(Math.random() * 100)}`)
+}, 10000)

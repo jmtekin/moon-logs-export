@@ -1,3 +1,6 @@
 node_modules
-debug.log
-latestline.txt
+venv
+ex1.log
+ex2.log
+latestline-ex1.txt
+latestline-ex2.txt

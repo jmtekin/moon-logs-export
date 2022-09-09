@@ -14,10 +14,10 @@ processors:
   batch/metrics:
     timeout: 60s
   batch/logs:
-    timeout: 60s
+    timeout: 5s
 exporters:
   logging:
-    loglevel: info
+    loglevel: debug
 service:
   pipelines:
     traces:
